@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Our App</title>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script type="text/javascript" src="clarifai-basic.js"></script>
+    <script type="text/javascript" src="training.js"></script>
+    <script type="javascript">
+function httpGetAsync(theUrl, callback) {
+   var xmlHttp = new XMLHttpRequest();
+   xmlHttp.onreadystatechange = function() {
+       if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+           callback(xmlHttp.responseText);
+   }
+   xmlHttp.open("GET", theUrl, true); // true for asynchronous
+   xmlHttp.send(null);
+}
+
+function callbackFunction(result) {
+console.log(Object.keys(result).length);
+console.log(result.length);
+if (result.length == 0) {
+console.log("Sorry, no results were found within 500 km.");
+} else {
+console.log(result);
+}
+
+}
+
+function getAirportApiUrl(lat, long) {
+return "http://api.sandbox.amadeus.com/v1.2/airports/nearest-relevant?apikey=5j79n1Agb8wGntymMrKyiPAsniLqpnub&latitude=" + lat + "&longitude=" + long;
+}
+
+httpGetAsync(getAirportApiUrl(40.7484, -73.9857), callbackFunction);
+</script>
+</head>
+
+<body>
+hello world
+</body>
+</html>
