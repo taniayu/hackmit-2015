@@ -8,21 +8,19 @@ var g_concepts = ['great sphinx', 'half dome', 'eiffel tower', 'great wall',
   "forbidden_city", "neuschwanstein_castle", "christ_the_redeemer", "edinburgh_castle", "the_shard",
   "the_gherkin", "washington_monument", "mecca", "bridge_of_sighs", "gateway_arch", "saint_basil_cathedral"];
 
-$(document).ready(
-  function(){
-      g_clarifai = new Clarifai(
-        {
-          'accessToken': 'QVlslCwVVsk2G8gNefYaBlPljwhA5A'
-        }
-      );
-      $("#submit").click(function() {
-        predict($("#landmark").val()).then(function (obj) {
-          makeRequest(obj.bestObject);
-        });
+var g_concepts = ['great sphinx', 'half dome', 'eiffel tower', 'great wall', 'statue_of_liberty']
 
-        });
+g_clarifai = new Clarifai(
+  {
+    'accessToken': 'QVlslCwVVsk2G8gNefYaBlPljwhA5A'
   }
 );
+
+function makePrediction(image_url) {
+  predict(image_url).then(function (obj) {
+    makeRequest(obj.bestObject);
+  });
+};
 
 function positive() {
   g_clarifai.positive('http://i.imgur.com/WbHFO0C.jpg', 'great sphinx');
