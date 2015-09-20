@@ -1,9 +1,9 @@
 var g_clarifai;
-var g_concepts = ['great sphinx', 'half dome', 'eiffel tower', 'great wall']
+var g_concepts = ['great sphinx', 'half dome', 'eiffel tower', 'great wall', 'statue_of_liberty']
 
 g_clarifai = new Clarifai(
   {
-    'accessToken': 'iNfR2YXAQYbyirbhSN6PdcDlCMOhhs'
+    'accessToken': 'QVlslCwVVsk2G8gNefYaBlPljwhA5A'
   }
 );
 

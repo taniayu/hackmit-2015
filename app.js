@@ -1,5 +1,10 @@
 var app = angular.module('MyApp', ['ngMaterial']);
 
+$(document).ready(function() {
+	$('#datepicker_start').datepicker();
+	$('#datepicker_end').datepicker();
+});
+
 app.controller('AppCtrl', function($scope) {
 	// Hide map permanently
 	$scope.show_map = false;
@@ -10,35 +15,88 @@ app.controller('AppCtrl', function($scope) {
 		url: ''
 	}
 	$scope.show_image_form = true;
-	$scope.show_image = false;
+	$scope.show_uploated_image = false;
+	$scope.show_image_location = false;
+	$scope.show_trip_form = false;
+	$scope.show_canvas = false;
 	$scope.image_src = "";
 	// Travel details form
-	$scope.origin = '';
-	$scope.date_start = null;
-	$scope.date_end = null;
-	$scope.duration = 0;
+	$scope.trip = {};
+	$scope.trip.origin = '';
+	$scope.trip.date_start = 'MM/DD/YYYY';
+	$scope.trip.date_end = 'MM/DD/YYYY'; // last possible start date
+	$scope.trip.duration = 0;
+
 
 	// Upload image
 	$scope.uploadImage = function() {
 		$scope.image_src = $scope.image.url;
 		$scope.show_image_form = false;
-		$scope.show_image = true;
+		$scope.show_uploaded_image = true;
 	}
 
 	// Show travel details form
 	$scope.showDetailsForm = function() {
-		
-	}
-
-	$scope.callback = function() {
-		console.log('--------');
+		$scope.show_image_location = false;
+		$scope.show_trip_form = true;
 	}
 
 	// Send image to Clarifai
 	$scope.sendImage = function() {
-		console.log('Send Image Requested...')
+		$scope.show_uploaded_image = false;
+		$scope.show_image_location = true;
+		// return;
+		console.log('Send Image Requested...');
 		makePrediction($scope.image_src);
-		$scope.callback()
+		// Wait for results
+		function repeat() {
+			if(! RETURN_TO_APP) {
+				setTimeout(repeat, 500);
+			}
+			else {
+				$scope.location = {'name': location_name, 'lat': g_targetLat, 'lng': g_targetLng}
+				console.log($scope.location);
+				$("#location_name_label").text($scope.location.name);
+			}
+		}
+
+		repeat();
+	}
+
+	// Get travel info
+	$scope.getTravelInfo = function() {
+		$scope.show_trip_form = false;
+		$scope.show_canvas = true;
+		console.log($scope.trip.origin);
+		console.log($scope.trip.duration);
+		$scope.trip.date_start = $('#datepicker_start').val();
+		$scope.trip.date_end = $('#datepicker_end').val();
+		console.log($scope.trip.date_start);
+		console.log($scope.trip.date_end);
+
+		var paramsObjectTemp = {
+		  		'origin': 'BOS',
+		  		'longitude':36.1,
+		  		'latitude':-115.2,
+		  		'departure_date': '2016-01-16--2016-01-26',
+		  		'duration': 15,
+		  	}
+
+		function getFormattedDepartureDate() {
+			var start_list = ($scope.trip.date_start).split('/');
+			var end_list = ($scope.trip.date_end).split('/');
+			return start_list[2] + '-' + start_list[0] + '-' + start_list[1] + '--' + end_list[2] + '-' + end_list[0] + end_list[1];
+		}
+
+		$scope.paramsObject = {
+			'origin': $scope.trip.origin,
+			'longitude': $scope.location.lng,
+			'latitude': $scope.location.lat,
+			'departure_date': getFormattedDepartureDate(),
+			'duration': $scope.duration
+
+		}
+		beginTravelSearch($scope.paramsObject);
 	}
 
 	// Reset image upload form
@@ -48,7 +106,15 @@ app.controller('AppCtrl', function($scope) {
 		// Reset src of image (it doesn't get cleared automatically)
 		$('#image').attr('src', '');
 		$scope.show_image_form = true;
-		$scope.show_image = false;
+		$scope.show_uploaded_image = false;
+		$scope.show_image_location = false;
+		$scope.show_trip_form = false;
+		$scope.show_canvas = false	;
+		$("#location_name_label").text("Loading...");
+		$scope.trip.origin = '';
+		$scope.trip.date_start = 'MM/DD/YYYY';
+		$scope.trip.date_end = 'MM/DD/YYYY'; // last possible start date
+		$scope.trip.duration = 0;
 	}
 
 

@@ -4,8 +4,12 @@ var infowindow;
 
 var cambridge;
 
-var g_targetLat = "1";
-var g_targetLng = "2";
+var g_targetLat;
+var g_targetLng;
+var location_name; // [hacky] use to return location to app.js
+
+var RETURN_TO_APP = false;
+
 
 function initialize() {
 	cambridge = {lat:42.371352, lng:-71.111193};
@@ -20,6 +24,7 @@ function initialize() {
 
 function makeRequest(placeName) {
 	console.log(placeName);
+	location_name = placeName;
 	var request = {
  		query: placeName
  	};
@@ -32,5 +37,6 @@ function callback(results, status) {
 		g_targetLat = place.geometry.location.lat();
 		g_targetLng = place.geometry.location.lng();
 		console.log(g_targetLat + "," + g_targetLng);
+		RETURN_TO_APP = true;
 	}
 }
