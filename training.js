@@ -1,11 +1,18 @@
 var g_clarifai;
-var g_concepts = ['great sphinx', 'half dome', 'eiffel tower', 'great wall']
+var g_concepts = ['great sphinx', 'half dome', 'eiffel tower', 'great wall',
+"times_square", "pamukkale", "mit", "leaning_tower_of_pisa", "big_ben", "sydney_opera_house",
+ "angkor_wat", "niagara_falls", "giza_pyramid", "stonehenge", "arc_de_triomphe", "notre_dame",
+ "brandenburg_gate", "acropolis", "taj_mahal", "colosseum", "machu_picchu", "blue_mosque",
+ "capitol_hill", "statue_of_liberty", "pamukkale", "golden_gate_bridge", "hollywood_sign", "london_eye", "mount_rushmore",
+ "potala_palace", "tokyo_tower", "berlin_wall", "ayers_rock", "burj_al_arab_hotel", "louvre_museum", "buckingham_palace",
+  "forbidden_city", "neuschwanstein_castle", "christ_the_redeemer", "edinburgh_castle", "the_shard",
+  "the_gherkin", "washington_monument", "mecca", "bridge_of_sighs", "gateway_arch", "saint_basil_cathedral"];
 
 $(document).ready(
   function(){
       g_clarifai = new Clarifai(
         {
-          'accessToken': 'iNfR2YXAQYbyirbhSN6PdcDlCMOhhs'
+          'accessToken': 'QVlslCwVVsk2G8gNefYaBlPljwhA5A'
         }
       );
       $("#submit").click(function() {
