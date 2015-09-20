@@ -81,7 +81,7 @@ function airportCallbackFunction(response, extraParams) {
 	lastStartDate.setDate(lastStartDate.getDate() + 1);
 	while (currentStartDate.getDate() != lastStartDate.getDate()) {
 		var endDate = new Date(currentStartDate.getFullYear(), currentStartDate.getMonth(), currentStartDate.getDate());
-		endDate.setDate(endDate.getDate() + paramsObjectTemp.duration);
+		endDate.setDate(endDate.getDate() + paramsObject.duration);
 
 		endDate = dateToString(endDate);
 		var startDate = dateToString(currentStartDate);
@@ -121,5 +121,5 @@ function flightCallbackFunction(response) {
 
 function beginTravelSearch(paramsObjectTemp) {
 	paramsObject = paramsObjectTemp;
-	httpGetAsync(getAirportApiUrl(paramsObject.longitude, paramsObject.latitude), airportCallbackFunction);	
+	httpGetAsync(getAirportApiUrl(paramsObject.latitude, paramsObject.longitude), airportCallbackFunction);	
 }
