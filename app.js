@@ -26,6 +26,7 @@ app.controller('AppCtrl', function($scope) {
 	$scope.trip.date_start = 'MM/DD/YYYY';
 	$scope.trip.date_end = 'MM/DD/YYYY'; // last possible start date
 	$scope.trip.duration = 0;
+	// $scope.location_label = "Loading...";
 
 
 	// Upload image
@@ -55,14 +56,16 @@ app.controller('AppCtrl', function($scope) {
 			}
 			else {
 				$scope.location = {'name': location_name, 'lat': g_targetLat, 'lng': g_targetLng}
-				console.log($scope.location);
+				// $scope.location_label = $scope.location.name
 
 				var str = $scope.location.name;
 				str = str.replace(/_/g, ' ');
     			str = str.replace(/\w\S*/g, function(txt) {
     				return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
     			});
+				// $scope.location_label = str;
 				$("#location_name_label").text(str);
+				
 			}
 		}
 
@@ -116,11 +119,11 @@ app.controller('AppCtrl', function($scope) {
 		$scope.show_image_location = false;
 		$scope.show_trip_form = false;
 		$scope.show_canvas = false	;
-		$("#location_name_label").text("Loading...");
 		$scope.trip.origin = '';
 		$scope.trip.date_start = 'MM/DD/YYYY';
 		$scope.trip.date_end = 'MM/DD/YYYY'; // last possible start date
 		$scope.trip.duration = 0;
+		// $scope.location_label = "Loading...";
 	}
 
 

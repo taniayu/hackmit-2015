@@ -71,7 +71,7 @@
 	        	<md-button class="md-raised left-align-btn" ng-click="reset()">Cancel</md-button>
 	    	    </div>
 	    	    <!-- Trip Details Form -->
-				    <form id="trip_form" ng-show="show_trip_form" ng-submit="getTravelInfo()">
+				    <form id="trip_form" name="trip_form" ng-show="show_trip_form">
 			    		<md-input-container>
 			          <label>Departing City (Ex: NYC)</label>
 			          <input ng-model="trip.origin" required maxlength="3" minlength="3">
@@ -92,7 +92,10 @@
 			    		<!-- <md-datepicker ng-model="trip.date_start" md-placeholder="Enter date"></md-datepicker><br>
 			    		and<br>
 			    		<md-datepicker ng-model="trip.date_end" md-placeholder="Enter date"></md-datepicker><br> -->
-			    		<input type="submit" id="submit" value="Submit" />
+			    		<!-- <input type="submit" id="submit" value="Submit" class="md-raised left-align-btn"/> -->
+				    	<md-button class="md-raised left-align-btn" ng-click="getTravelInfo()" ng-disabled="trip_form.$invalid">Submit</md-button>
+
+				    	<md-button class="md-raised left-align-btn" ng-click="reset()">Cancel</md-button>
 				    </form>
 				    <!-- Graph Canvas -->
 				    <div id="canvas-div" ng-show="show_canvas">
