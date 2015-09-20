@@ -95,7 +95,10 @@
 			    		<input type="submit" id="submit" value="Submit" />
 				    </form>
 				    <!-- Graph Canvas -->
-				    <canvas id="myChart" width="500" height="600" ng-show="show_canvas"></canvas>
+				    <div id="canvas-div" ng-show="show_canvas">
+					    <canvas id="myChart" width="500" height="600"></canvas>
+				    	<md-button class="md-raised left-align-btn" ng-click="reset()">Cancel</md-button>
+				    </div>
 				  </div>
 			 	</div>
 		  </md-whiteframe>
