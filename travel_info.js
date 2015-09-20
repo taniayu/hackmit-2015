@@ -1,11 +1,5 @@
 var datePriceObject = {'flight': [], 'hotel': [], 'car': []};
-var paramsObjectTemp = {
-	'origin': 'BOS',
-	'longitude':36.1,
-	'latitude':-115.2,
-	'departure_date': '2016-01-16--2016-01-26',
-	'duration': 15,
-}
+var paramsObject;
 
 function httpGetAsync(theUrl, callback) {
     var xmlHttp = new XMLHttpRequest();
@@ -76,9 +70,9 @@ function airportCallbackFunction(response, extraParams) {
 	}
 	var airportObj = obj[0]; // Most relevant airport
 
-	httpGetAsync(getFlightApiUrl(paramsObjectTemp.origin, airportObj.airport, paramsObjectTemp.departure_date, paramsObjectTemp.duration), flightCallbackFunction);
+	httpGetAsync(getFlightApiUrl(paramsObject.origin, airportObj.airport, paramsObject.departure_date, paramsObject.duration), flightCallbackFunction);
 
-	var dateSplit = paramsObjectTemp.departure_date.split('--');
+	var dateSplit = paramsObject.departure_date.split('--');
 	var firstStartDate = dateSplit[0].split('-');
 	var lastStartDate = dateSplit[1].split('-');
 
@@ -125,7 +119,7 @@ function flightCallbackFunction(response) {
 
 
 
-function beginTravelSearch(paramsObject) {
+function beginTravelSearch(paramsObjectTemp) {
+	paramsObject = paramsObjectTemp;
 	httpGetAsync(getAirportApiUrl(paramsObject.longitude, paramsObject.latitude), airportCallbackFunction);	
 }
-
