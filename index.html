@@ -1,0 +1,77 @@
+<!doctype html>
+<head>
+	<!-- Angular JS and Angular Material Dependencies -->
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-animate.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-aria.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angular_material/0.9.4/angular-material.js"></script>
+	<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/0.9.4/angular-material.css">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=RobotoDraft:300,400,500,700,400italic">
+
+	<!-- JQuery -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+	<!-- Geocoding -->
+	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCq-zy5xLU92E9vukEt4sQBK11T_JmCT24&signed_in=true&libraries=places&callback=initialize" async defer></script>
+
+	<script type="text/javascript" src="clarifai-basic.js"></script>
+	<script type="text/javascript" src="training.js"></script>
+	<script type="text/javascript" src="locate.js"></script>
+	<script type="text/javascript" src="q.js"></script>
+
+	<!-- Javascript -->
+  <script src="app.js"></script>
+	<link rel="stylesheet" href="style.css">
+
+</head>
+<body ng-app="MyApp" ng-controller="AppCtrl">
+	<md-toolbar>
+		<div class="md-toolbar-tools">
+	    <md-button class="md-icon-button" aria-label="Settings">
+	      <!-- <md-icon md-svg-icon="img/icons/menu.svg"></md-icon> -->
+	    </md-button>
+	    <h2>
+	      <span>[App Name]</span>
+	    </h2>
+	    <span flex=""></span>
+	    <md-button class="md-icon-button" aria-label="Favorite">
+	      <!-- <md-icon md-svg-icon="img/icons/favorite.svg" style="color: greenyellow;"></md-icon> -->
+	    </md-button>
+	    <md-button class="md-icon-button" aria-label="More">
+	      <!-- <md-icon md-svg-icon="img/icons/more_vert.svg"></md-icon> -->
+	    </md-button>
+	  </div>
+	</md-toolbar>
+</md-toolbar>
+  <div id="main-div">
+		<div id="outer-whiteframe-div">
+			<md-whiteframe class="md-whiteframe-z1" layout="" layout-align="center center">
+				<div id="inner-whiteframe-div">
+					<div id="content-div">
+				    <form id="image_form" ng-show="show_image_form">
+			    		<md-input-container>
+			          <label>Image URL</label>
+			          <input ng-model="image.url">
+			    		</md-input-container>
+			    		<md-button class="md-raised left-align-btn" ng-click="uploadImage()">Upload</md-button>
+				    </form>
+				    <div id="image-div" ng-show="show_image">
+			    		<img id="image" ng-src="{{image_src}}" alt="Incorrect Image Format" />
+			    		<md-button class="md-raised left-align-btn" ng-click="showDetailsForm()">Next</md-button>
+			    		<md-button class="md-raised left-align-btn" ng-click="sendImage()">Send</md-button>
+			    		<md-button class="md-raised left-align-btn" ng-click="reset()">Cancel</md-button>
+				    </div>
+				  <!--   <form id="image_form" ng-show="show_image_form">
+			    		<md-input-container>
+			          <label>Image URL</label>
+			          <input ng-model="image.url">
+			    		</md-input-container>
+			    		<md-button class="md-raised left-align-btn" ng-click="uploadImage()">Upload</md-button>
+				    </form> -->
+				  </div>
+			 	</div>
+		  </md-whiteframe>
+	  </div>
+  </div>
+  <div id="map" ng-show="show_map"></div>
+</body>

@@ -1,21 +1,17 @@
 var g_clarifai;
 var g_concepts = ['great sphinx', 'half dome', 'eiffel tower', 'great wall']
 
-$(document).ready(
-  function(){
-      g_clarifai = new Clarifai(
-        {
-          'accessToken': 'iNfR2YXAQYbyirbhSN6PdcDlCMOhhs'
-        }
-      );
-      $("#submit").click(function() {
-        predict($("#landmark").val()).then(function (obj) {
-          makeRequest(obj.bestObject);
-        });
-
-        });
+g_clarifai = new Clarifai(
+  {
+    'accessToken': 'iNfR2YXAQYbyirbhSN6PdcDlCMOhhs'
   }
 );
+
+function makePrediction(image_url) {
+  predict(image_url).then(function (obj) {
+    makeRequest(obj.bestObject);
+  });
+};
 
 function positive() {
   g_clarifai.positive('http://i.imgur.com/WbHFO0C.jpg', 'great sphinx');

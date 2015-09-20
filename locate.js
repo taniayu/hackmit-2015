@@ -4,8 +4,8 @@ var infowindow;
 
 var cambridge;
 
-var g_targetLat;
-var g_targetLng;
+var g_targetLat = "1";
+var g_targetLng = "2";
 
 function initialize() {
 	cambridge = {lat:42.371352, lng:-71.111193};
@@ -32,6 +32,5 @@ function callback(results, status) {
 		g_targetLat = place.geometry.location.lat();
 		g_targetLng = place.geometry.location.lng();
 		console.log(g_targetLat + "," + g_targetLng);
- 	document.getElementById('display').innerHTML = g_targetLat + "," + g_targetLng;
 	}
 }
