@@ -8,7 +8,6 @@ var g_concepts = ['great sphinx', 'half dome', 'eiffel tower', 'great wall',
   "forbidden_city", "neuschwanstein_castle", "christ_the_redeemer", "edinburgh_castle", "the_shard",
   "the_gherkin", "washington_monument", "mecca", "bridge_of_sighs", "gateway_arch", "saint_basil_cathedral"];
 
-var g_concepts = ['great sphinx', 'half dome', 'eiffel tower', 'great wall', 'statue_of_liberty']
 
 g_clarifai = new Clarifai(
   {
@@ -82,6 +81,24 @@ function negative() {
   g_clarifai.positive('http://i.imgur.com/r2EVcbf.jpg', 'great wall');
 }
 
+function negative_sphinx() {
+    g_clarifai.negative('http://i.imgur.com/WbHFO0C.jpg', 'mit');
+  g_clarifai.negative('http://i.imgur.com/BvDZ6lc.jpg', 'mit');
+  g_clarifai.negative('http://i.imgur.com/abTzH8N.jpg', 'mit');
+  g_clarifai.negative('http://i.imgur.com/Zz80cfG.jpg', 'mit');
+  g_clarifai.negative('http://i.imgur.com/fTrw55y.jpg', 'mit');
+  g_clarifai.negative('http://i.imgur.com/dHToNnF.jpg', 'mit');
+  g_clarifai.negative('http://i.imgur.com/BLx7qG3.jpg', 'mit');
+
+  g_clarifai.negative('http://i.imgur.com/WbHFO0C.jpg', 'taj_mahal');
+    g_clarifai.negative('http://i.imgur.com/BvDZ6lc.jpg', 'taj_mahal');
+    g_clarifai.negative('http://i.imgur.com/abTzH8N.jpg', 'taj_mahal');
+    g_clarifai.negative('http://i.imgur.com/Zz80cfG.jpg', 'taj_mahal');
+    g_clarifai.negative('http://i.imgur.com/fTrw55y.jpg', 'taj_mahal');
+    g_clarifai.negative('http://i.imgur.com/dHToNnF.jpg', 'taj_mahal');
+    g_clarifai.negative('http://i.imgur.com/BLx7qG3.jpg', 'taj_mahal');
+
+}
 function train() {
   g_clarifai.train('great sphinx');
   g_clarifai.train('half dome');
