@@ -3,6 +3,8 @@
   <head>
     <title>Our App</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="chart/Chart.js"></script>
+    <script src="draw-graph.js"></script>
     <script language="javascript">
     	var datePriceObject = {'flight': [], 'hotel': [], 'car': []};
     	var paramsObjectTemp = {
@@ -10,7 +12,7 @@
     		'longitude':36.1,
     		'latitude':-115.2,
     		'departure_date': '2016-01-16--2016-01-26',
-    		'duration': 7,
+    		'duration': 15,
     	}
 
 		function httpGetAsync(theUrl, callback) {
@@ -50,8 +52,11 @@
 			var checkInIndex = hotel._links.more_rooms_at_this_hotel.href.indexOf("check_in=");
 			var startDate = hotel._links.more_rooms_at_this_hotel.href.substring(checkInIndex + 9, checkInIndex + 19);
 
-			datePriceObject['hotel'].push({'price': hotel.total_price, 'date': startDate});
-			console.log(datePriceObject);
+			datePriceObject['hotel'].push({'price': hotel.total_price.amount, 'date': startDate});
+
+			if (datePriceObject['hotel'].length == datePriceObject['flight'].length) {
+				drawGraph(datePriceObject);
+			}
 		}
 
 		function carCallbackFunction(response) {
@@ -62,7 +67,6 @@
 			}
 			var price = obj.results[0].cars[0].estimated_total.amount; // TODO: Improve
 			datePriceObject['car'].push({'price': price, 'date': extraParams});
-			console.log(datePriceObject);
 
 			/*var hotel = obj.results[0];
 			var checkInIndex = hotel._links.more_rooms_at_this_hotel.href.indexOf("check_in=");
@@ -124,9 +128,7 @@
 			}
 			$.each(obj.results, function(flightKey, flightValue) {
 				datePriceObject['flight'].push({'price': flightValue.price, 'date': flightValue.departure_date});
-				$('#flightTable').append('<tr><td>' + flightValue.destination + '</td><td>' + flightValue.departure_date + '</td><td>' + flightValue.return_date + '</td><td>' + flightValue.price + '</td><td>' + flightValue.airline + '</td></tr>');
 			});
-			console.log(datePriceObject);
 		}
 
 
@@ -141,12 +143,6 @@
   </head>
 
   <body>
-  	<table id="flightTable">
-  		<th>Destination</th>
-  		<th>Departure Date</th>
-  		<th>Return Date</th>
-  		<th>Price</th>
-  		<th>Airline</th>
-  	</table>
+  	<canvas id="myChart" width="600" height="600"></canvas>
   </body>
 </html>
