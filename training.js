@@ -11,7 +11,7 @@ var g_concepts = ['great sphinx', 'half dome', 'eiffel tower', 'great wall',
 
 g_clarifai = new Clarifai(
   {
-    'accessToken': 'QVlslCwVVsk2G8gNefYaBlPljwhA5A'
+    'accessToken': '0EqPTTtfJkNPaEWEr8Ys3hPhaR3ANt'
   }
 );
 
