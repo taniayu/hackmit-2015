@@ -3,14 +3,18 @@
 	text-align: center;
 }
 
+#title-div{
+	padding-left: 30px;
+}
+
 #outer-whiteframe-div{
 	width: 600px;
 	display: inline-block;
 }
 
 #inner-whiteframe-div{
-	padding-top: 20px;
-	padding-bottom: 20px;
+	padding-top: 50px;
+	padding-bottom: 50px;
 }
 
 #content-div{

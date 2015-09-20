@@ -36,19 +36,11 @@
 <body ng-app="MyApp" ng-controller="AppCtrl">
 	<md-toolbar>
 		<div class="md-toolbar-tools">
-	    <md-button class="md-icon-button" aria-label="Settings">
-	      <!-- <md-icon md-svg-icon="img/icons/menu.svg"></md-icon> -->
-	    </md-button>
+			<div id="title-div">
 	    <h2>
-	      <span>[App Name]</span>
+	      <span>PicturIN</span>
 	    </h2>
-	    <span flex=""></span>
-	    <md-button class="md-icon-button" aria-label="Favorite">
-	      <!-- <md-icon md-svg-icon="img/icons/favorite.svg" style="color: greenyellow;"></md-icon> -->
-	    </md-button>
-	    <md-button class="md-icon-button" aria-label="More">
-	      <!-- <md-icon md-svg-icon="img/icons/more_vert.svg"></md-icon> -->
-	    </md-button>
+	    </div>
 	  </div>
 	</md-toolbar>
 </md-toolbar>
@@ -58,6 +50,7 @@
 				<div id="inner-whiteframe-div">
 					<div id="content-div">
 				    <form id="image_form" ng-show="show_image_form">
+				    	<label>Upload a Photo to Start Planning Your Trip!</label><br>
 			    		<md-input-container>
 			          <label>Image URL</label>
 			          <input ng-model="image.url">
@@ -80,7 +73,7 @@
 	    	    <!-- Trip Details Form -->
 				    <form id="trip_form" ng-show="show_trip_form" ng-submit="getTravelInfo()">
 			    		<md-input-container>
-			          <label>Departing Airport (Ex: BOS)</label>
+			          <label>Departing City (Ex: NYC)</label>
 			          <input ng-model="trip.origin" required maxlength="3" minlength="3">
 			    		</md-input-container>
 			    		<md-input-container>
@@ -102,7 +95,7 @@
 			    		<input type="submit" id="submit" value="Submit" />
 				    </form>
 				    <!-- Graph Canvas -->
-				    <canvas id="myChart" width="600" height="600" ng-show="show_canvas"></canvas>
+				    <canvas id="myChart" width="500" height="600" ng-show="show_canvas"></canvas>
 				  </div>
 			 	</div>
 		  </md-whiteframe>
