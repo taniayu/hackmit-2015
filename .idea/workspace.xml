@@ -1,13 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="84bf3947-03e9-4669-9b29-9c715da6f6ce" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/clarifai-basic.js" afterPath="$PROJECT_DIR$/clarifai-basic.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/locate.js" afterPath="$PROJECT_DIR$/locate.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main.html" afterPath="$PROJECT_DIR$/main.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/training.html" afterPath="$PROJECT_DIR$/training.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/training.js" afterPath="$PROJECT_DIR$/training.js" />
-    </list>
+    <list default="true" id="84bf3947-03e9-4669-9b29-9c715da6f6ce" name="Default" comment="" />
     <ignored path="hackmit.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path="$PROJECT_DIR$/out/" />
