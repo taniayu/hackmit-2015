@@ -29,7 +29,6 @@ function makeRequest(placeName) {
 function callback(results, status) {
 	if (status == google.maps.places.PlacesServiceStatus.OK) {
 		var place = results[0];
-		console.log("lat: " + place.geometry.location.lat());
 		g_targetLat = place.geometry.location.lat();
 		g_targetLng = place.geometry.location.lng();
 		console.log(g_targetLat + "," + g_targetLng);

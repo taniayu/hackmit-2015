@@ -1,7 +1,5 @@
 var g_clarifai;
 var g_concepts = ['great sphinx', 'half dome', 'eiffel tower', 'great wall']
-var g_best_object;
-var g_best_score = 0;
 
 $(document).ready(
   function(){
@@ -10,7 +8,13 @@ $(document).ready(
           'accessToken': 'iNfR2YXAQYbyirbhSN6PdcDlCMOhhs'
         }
       );
-  }  
+      $("#submit").click(function() {
+        predict($("#landmark").val()).then(function (obj) {
+          makeRequest(obj.bestObject);
+        });
+
+        });
+  }
 );
 
 function positive() {
@@ -81,25 +85,33 @@ function train() {
 }
 
 function predict(imgurl) {
+  var arrayOfPromises = [];
+  var bestScore = 0;
+  var bestObject = null;
   for (i = 0; i < g_concepts.length; i++  ) {
-    predict_each(imgurl, i);
+    var promise = predict_each(imgurl, g_concepts[i]).then(function(obj) {
+      if (obj.score > bestScore) {
+        bestObject = obj.originalQuery;
+        bestScore = obj.score;
+      }
+    });
+    arrayOfPromises.push(promise);
   }
+  return Q.all(arrayOfPromises).then(function () {
+    return {
+      bestScore: bestScore,
+      bestObject: bestObject
+    };
+  });
   console.log(g_best_object);
-  return g_best_object;
 }
 
-function predict_each(imgurl, i) {
-    g_clarifai.predict(imgurl, g_concepts[i], callback)
-    .then(function(obj) {
-        console.log(obj.score);
-        if (obj.score > g_best_score) {
-          g_best_object = g_concepts[i];
-          g_best_score = obj.score;
-          console.log(g_best_object);
-        }
+function predict_each(imgurl, keyword) {
+    return g_clarifai.predict(imgurl, keyword, callback).then(function (obj) {
+      obj.originalQuery = keyword;
+      return obj;
     });
 }
-
 
 function callback(obj){
   console.log('callback', obj);
