@@ -85,15 +85,15 @@ app.controller('AppCtrl', function($scope) {
 		function getFormattedDepartureDate() {
 			var start_list = ($scope.trip.date_start).split('/');
 			var end_list = ($scope.trip.date_end).split('/');
-			return start_list[2] + '-' + start_list[0] + '-' + start_list[1] + '--' + end_list[2] + '-' + end_list[0] + end_list[1];
+			return start_list[2] + '-' + start_list[0] + '-' + start_list[1] + '--' + end_list[2] + '-' + end_list[0] + '-' + end_list[1];
 		}
 
 		$scope.paramsObject = {
-			'origin': $scope.trip.origin,
+			'origin': ($scope.trip.origin).toUpperCase(),
 			'longitude': $scope.location.lng,
 			'latitude': $scope.location.lat,
 			'departure_date': getFormattedDepartureDate(),
-			'duration': $scope.duration
+			'duration': $scope.trip.duration
 
 		}
 		beginTravelSearch($scope.paramsObject);

@@ -2,6 +2,7 @@ var datePriceObject = {'flight': [], 'hotel': [], 'car': []};
 var paramsObject;
 
 function httpGetAsync(theUrl, callback) {
+	console.log(theUrl);
     var xmlHttp = new XMLHttpRequest();
     xmlHttp.onreadystatechange = function() { 
         if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
@@ -40,6 +41,8 @@ function hotelCallbackFunction(response) {
 
 	datePriceObject['hotel'].push({'price': hotel.total_price.amount, 'date': startDate});
 
+	console.log(datePriceObject['hotel'].length);
+	console.log(datePriceObject['flight'].length);
 	if (datePriceObject['hotel'].length == datePriceObject['flight'].length) {
 		drawGraph(datePriceObject);
 	}
@@ -70,7 +73,7 @@ function airportCallbackFunction(response, extraParams) {
 	}
 	var airportObj = obj[0]; // Most relevant airport
 
-	httpGetAsync(getFlightApiUrl(paramsObject.origin, airportObj.airport, paramsObject.departure_date, paramsObject.duration), flightCallbackFunction);
+	httpGetAsync(getFlightApiUrl(paramsObject.origin, airportObj.city, paramsObject.departure_date, paramsObject.duration), flightCallbackFunction);
 
 	var dateSplit = paramsObject.departure_date.split('--');
 	var firstStartDate = dateSplit[0].split('-');
@@ -79,15 +82,23 @@ function airportCallbackFunction(response, extraParams) {
 	var currentStartDate = new Date(firstStartDate[0], firstStartDate[1] - 1, firstStartDate[2]);
 	var lastStartDate = new Date(lastStartDate[0], lastStartDate[1] - 1, lastStartDate[2]);
 	lastStartDate.setDate(lastStartDate.getDate() + 1);
-	while (currentStartDate.getDate() != lastStartDate.getDate()) {
+	var count = 0;
+	while (currentStartDate.getDate() != lastStartDate.getDate() && count < 20) {
+		console.log("LOOPING");
+		console.log(currentStartDate.getFullYear(), currentStartDate.getMonth(), currentStartDate.getDate());
 		var endDate = new Date(currentStartDate.getFullYear(), currentStartDate.getMonth(), currentStartDate.getDate());
-		endDate.setDate(endDate.getDate() + paramsObject.duration);
+		console.log(endDate);
+		console.log(paramsObject.duration);
+		endDate.setDate(endDate.getDate() + parseInt(paramsObject.duration));
+		console.log(endDate);
 
 		endDate = dateToString(endDate);
+		console.log(endDate);
 		var startDate = dateToString(currentStartDate);
 		httpGetAsync(getHotelApiUrl(airportObj.airport, startDate, endDate), hotelCallbackFunction);
 		//httpGetAsync(getCarApiUrl(airportObj.airport, startDate, endDate), carCallbackFunction, startDate);
 		currentStartDate.setDate(currentStartDate.getDate() + 1);
+		count = count + 1;
 	}
 }
 
